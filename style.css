@@ -1,0 +1,313 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto Mono', monospace;
+    color: #474747f0;
+    background: no-repeat center / cover fixed url('./img/texture.svg');
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.padding-20 {
+    padding: 20px;
+}
+
+.padding-15 {
+    padding: 15px;
+}
+
+.padding-10 {
+    padding: 10px;
+}
+
+.padding-5 {
+    padding: 5px;
+}
+
+.padding-lr-10 {
+    padding: 0 10px;
+}
+
+.padding-lr-5 {
+    padding: 0 10px;
+}
+
+.padding-tb-5 {
+    padding: 5px 0;
+}
+
+.padding-tb-10 {
+    padding: 10px 0;
+}
+
+.container {
+    max-width: 724px;
+    margin: 0 auto;
+}
+
+.list {
+    align-items: center;
+}
+
+.list input[type='text'] {
+    -webkit-appearance: none;
+    outline: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    padding: 5px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 16px;
+    color: #474747f0;
+    text-align: center;
+    box-shadow: 5px 6px 0 #66a8f1;
+}
+
+.add-todo-input {
+    width: 35%;
+}
+
+.search-input {
+    width: 100%;
+}
+
+.search-container {
+    width: 50%;
+}
+
+.todos-list {
+    width: 100%;
+}
+
+.list-item {
+    position: relative;
+}
+
+.list-title {
+    font-size: 34px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.list-title h1 {
+    color: #ffffff;
+    margin: 0;
+    border-bottom: 4px solid #ffffff;
+}
+
+.item-container {
+    flex-grow: 1;
+    background-color: #ffffff;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+.item-left-container {
+    justify-content: space-between;
+    align-items: center;
+    border-right: 1px solid #cececea6;
+    min-width: 150px;
+}
+
+.item-date {
+    font-size: 12px;
+    text-align: center;
+}
+
+.item-right-container {
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.item-text {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.item-icon-container {
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.item-icon-container i {
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.low {
+    color: #1fa61f;
+}
+
+.high {
+    color: #d22c2c;
+}
+
+.medium {
+    color: #f0a418;
+}
+
+.status-low {
+    box-shadow: 5px 6px 0 rgb(127, 226, 191);
+}
+
+.status-high {
+    box-shadow: 5px 6px 0 rgb(244, 127, 136);
+}
+
+.status-medium {
+    box-shadow: 5px 6px 0 rgb(255, 165, 104);
+}
+
+.completed {
+    background-color: #cecece;
+    color: #6c6a6aba;
+}
+
+.completed-text {
+    text-decoration: line-through;
+}
+
+.add-todo-container {
+    align-items: center;
+    width: 100%;
+    padding: 0 0 15px 0;
+}
+
+.add-todo-checkbox-group,
+.add-todo-edit-checkbox-group {
+    display: flex;
+    flex-direction: row;
+    padding: 20px 15px 15px 25px;
+}
+
+.add-todo-checkbox-group input {
+    display: none;
+}
+.add-todo-edit-checkbox-group input {
+    display: none;
+}
+
+label {
+    font-size: 16px;
+    font-weight: 700;
+    color: #868686;
+    display: inline-block;
+    padding: 0 3px 0 25px;
+    cursor: pointer;
+    position: relative;
+}
+
+label i {
+    padding: 0 3px;
+}
+
+label:before {
+    content: '';
+    display: inline-block;
+    background: #66a8f1;
+    position: absolute;
+    left: 0;
+    top: -4px;
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+    border-radius: 80%;
+    box-shadow: 0 0 2px 3px rgba(0, 0, 0, .2);
+    box-sizing: border-box;
+    border: 10px solid #fff;
+    transition: border .3s ease;
+}
+
+input[type='checkbox']:checked + label:before {
+    border-color: #fff;
+    border-width: 3px;
+}
+
+input[type='checkbox'] + label {
+    transition: color .7s ease;
+}
+
+input[type='checkbox']:checked + label {
+    color: #ffffff;
+}
+
+.modal-body {
+    padding: 2px 16px;
+}
+
+
+.modal-content,
+.modal-edit-content {
+    position: absolute;
+    opacity: 0;
+    background-color: #fefefe;
+    right: 20%;
+    top: 5%;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 21%;
+    box-shadow: 5px 6px 0 rgb(241, 61, 61);
+    transition: all ease-in-out 0.5s;
+    z-index: 0;
+    visibility: hidden;
+}
+
+.modal-edit-content {
+    width: 40%;
+    top: 0;
+    box-shadow: 5px 6px 0 rgb(102, 168, 241);
+}
+
+.modal-edit-body input[type='text'] {
+    width: 100%;
+    box-shadow: 0 4px 0 #66a8f1;
+}
+
+.add-todo-edit-checkbox-group input[type='checkbox']:checked + label {
+    color: #454545;
+} {
+
+}
+
+.modal-edit-body {
+
+}
+
+.active-modal {
+    visibility: visible;
+    opacity: 1;
+    z-index: 22;
+}
+
+.modal-footer,
+.modal-edit-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 24px;
+    padding: 2px;
+}
+
+.modal-footer i {
+    cursor: pointer;
+}
+
+.modal-edit-footer i {
+    cursor: pointer;
+}
+

@@ -1,0 +1,156 @@
+const todoTemplate = (date, text, priority, id) => {
+    date = _parseDate(date);
+    return `<div class="list-item flex flex-row padding-10" id="${id}">
+                    <div class="item-container flex flex-row padding-5 ${_getBackgroundColor(priority)}">
+                        <div class="item-left-container flex flex-row">
+                            <div class="item-date padding-5">
+                               ${date}
+                            </div>
+                            <div class="item-priority padding-5 ${priority}">
+                                ${priority === 'low' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>'}
+                            </div>
+                        </div>
+                        <div class="item-right-container flex flex-row">
+                              <div class="item-text padding-lr-10">
+                                  ${text}
+                              </div>
+                              <div class="item-icon-container">
+                                  <i class="fas fa-check" data-check="${id}"></i>
+                                  <i class="fas fa-pen" data-editModal="${id}"></i>
+                                  <i class="fas fa-times" data-removeModal="${id}"></i>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            Are you sure?
+                        </div>
+                        <div class="modal-footer">
+                            <i class="fas fa-check low" data-remove="${id}"></i>
+                            <i class="fas fa-times high" data-close="${id}"></i>
+                        </div>
+                    </div>
+                    <div class="modal-edit-content" >
+                        <div class="modal-edit-body">
+                            <input type="text" class="edit-todo-input modal" placeholder="What needs to be done???">
+                            <div class="add-todo-edit-checkbox-group modal" onclick="_handleEditCheckboxes(event)">
+                                <input class="checkbox-edit" type="checkbox" checked id="edit-low" value="low">
+                                <label class="modal" for="edit-low">Low<i class="fas fa-arrow-down low modal"></i></label>
+                                <input class="checkbox-edit" type="checkbox" id="edit-medium" value="medium">
+                                <label class="modal" for="edit-medium">Mid<i class="fas fa-arrow-up medium modal"></i></label>
+                                <input class="checkbox-edit" type="checkbox" id="edit-high" value="high">
+                                <label class="modal" for="edit-high">High<i class="fas fa-arrow-up high modal"></i></label>
+                            </div>
+                        </div>
+                        <div class="modal-edit-footer">
+                            <i class="fas fa-check low" data-edit="${id}"></i>
+                            <i class="fas fa-times high" data-close="${id}"></i>
+                        </div>
+                    </div>
+                </div>`
+};
+
+const completedTodoTemplate = (date, text, priority, id) => {
+    date = _parseDate(date);
+    return `<div class="list-item flex flex-row padding-10" id="${id}">
+                    <div class="item-container flex flex-row padding-5 completed">
+                        <div class="item-left-container flex flex-row">
+                            <div class="item-date padding-5">
+                               ${date}
+                            </div>
+                            <div class="item-priority padding-5 ${priority}">
+                                ${priority === 'low' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>'}
+                            </div>
+                        </div>
+                        <div class="item-right-container flex flex-row">
+                              <div class="item-text padding-lr-10 completed-text">
+                                  ${text}
+                              </div>
+                              <div class="item-icon-container">
+                                  <i class="fas fa-undo-alt" data-undo="${id}"></i>
+                                  <i class="fas fa-pen" data-editModal="${id}"></i>
+                                  <i class="fas fa-times" data-removeModal="${id}"></i>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            Are you sure?
+                        </div>
+                        <div class="modal-footer">
+                            <i class="fas fa-check low" data-remove="${id}"></i>
+                            <i class="fas fa-times high" data-close="${id}"></i>
+                        </div>
+                    </div>
+                    <div class="modal-edit-content" >
+                        <div class="modal-edit-body">
+                            <input type="text" class="edit-todo-input modal" placeholder="What needs to be done???">
+                            <div class="add-todo-edit-checkbox-group modal" onclick="_handleEditCheckboxes(event)">
+                                <input class="checkbox-edit" type="checkbox" checked id="edit-low" value="low">
+                                <label class="modal" for="edit-low">Low<i class="fas fa-arrow-down low modal"></i></label>
+                                <input class="checkbox-edit" type="checkbox" id="edit-medium" value="medium">
+                                <label class="modal" for="edit-medium">Mid<i class="fas fa-arrow-up medium modal"></i></label>
+                                <input class="checkbox-edit" type="checkbox" id="edit-high" value="high">
+                                <label class="modal" for="edit-high">High<i class="fas fa-arrow-up high modal"></i></label>
+                            </div>
+                        </div>
+                        <div class="modal-edit-footer">
+                            <i class="fas fa-check low" data-edit="${id}"></i>
+                            <i class="fas fa-times high" data-close="${id}"></i>
+                        </div>
+                    </div>
+                </div>`
+};
+
+
+const generateUID = () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+};
+
+const debounce = (f, ms) => {
+
+    let timer = null;
+
+    return (...args) => {
+        const onComplete = () => {
+            f.apply(this, args);
+            timer = null;
+        };
+
+        if (timer) {
+            clearTimeout(timer);
+        }
+
+        timer = setTimeout(onComplete, ms);
+    };
+};
+
+function _getBackgroundColor(priority) {
+    return priority === 'low' ? 'status-low' : priority === 'high' ? 'status-high' : 'status-medium'
+}
+
+const _parseDate = (date) => {
+    const today = moment();
+    return moment(date).from(today);
+};
+
+window._handleEditCheckboxes = (event) => {
+    const container = event.target.closest('.add-todo-edit-checkbox-group');
+    const checkboxes = container.querySelectorAll('.checkbox-edit');
+    if (event.target.nodeName === 'LABEL' && event.target.control.type === 'checkbox') {
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
+        event.target.control.checked = true;
+    }
+
+};
+export {
+    todoTemplate,
+    completedTodoTemplate,
+    debounce,
+    generateUID
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700&display=swap&subset=cyrillic-ext"
+          rel="stylesheet" type="font">
+    <link href="style.css" rel="stylesheet">
+    <link href="fontawesome/css/all.min.css" rel="stylesheet">
+    <script src="js/main.js" type="module"></script>
+    <script src="js/moment.js"></script>
+    <meta charset="UTF-8">
+    <title>Todo</title>
+</head>
+<body>
+<main>
+    <div class="container">
+        <div class="list flex flex-column">
+            <div class="list-title">
+                <h1>todos</h1>
+            </div>
+
+            <div class="add-todo-container flex flex-column">
+                <div class="add-todo-checkbox-group">
+                    <input type="checkbox" class="checkbox" checked id="low" value="low">
+                    <label for="low">Low<i class="fas fa-arrow-down low"></i></label>
+                    <input type="checkbox" class="checkbox" id="medium" value="medium">
+                    <label for="medium">Mid<i class="fas fa-arrow-up medium"></i></label>
+                    <input type="checkbox" class="checkbox" id="high" value="high">
+                    <label for="high">High<i class="fas fa-arrow-up high"></i></label>
+                </div>
+                <input type="text" class="add-todo-input" placeholder="What needs to be done???">
+            </div>
+
+            <div class="search-container padding-tb-10">
+                <input type="text" class="search-input" placeholder="Search...">
+            </div>
+            <div class="todos-list">
+
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
