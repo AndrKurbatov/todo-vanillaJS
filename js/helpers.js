@@ -32,14 +32,14 @@ const todoTemplate = (date, text, priority, id) => {
                     </div>
                     <div class="modal-edit-content" >
                         <div class="modal-edit-body">
-                            <input type="text" class="edit-todo-input modal" placeholder="What needs to be done???">
-                            <div class="add-todo-edit-checkbox-group modal" onclick="_handleEditCheckboxes(event)">
-                                <input class="checkbox-edit" type="checkbox" checked id="edit-low" value="low">
-                                <label class="modal" for="edit-low">Low<i class="fas fa-arrow-down low modal"></i></label>
-                                <input class="checkbox-edit" type="checkbox" id="edit-medium" value="medium">
-                                <label class="modal" for="edit-medium">Mid<i class="fas fa-arrow-up medium modal"></i></label>
-                                <input class="checkbox-edit" type="checkbox" id="edit-high" value="high">
-                                <label class="modal" for="edit-high">High<i class="fas fa-arrow-up high modal"></i></label>
+                            <input type="text" class="edit-todo-input modal" value="${text}" placeholder="What needs to be done???">
+                            <div class="add-todo-edit-checkbox-group modal" id="${id}" onclick="_handleEditCheckboxes(event, id)">
+                                <input class="checkbox-edit" type="checkbox" checked id="edit-low-${id}" value="low">
+                                <label class="modal" for="edit-low-${id}">Low<i class="fas fa-arrow-down low modal"></i></label>
+                                <input class="checkbox-edit" type="checkbox" id="edit-medium-${id}" value="medium">
+                                <label class="modal" for="edit-medium-${id}">Mid<i class="fas fa-arrow-up medium modal"></i></label>
+                                <input class="checkbox-edit" type="checkbox" id="edit-high-${id}" value="high">
+                                <label class="modal" for="edit-high-${id}">High<i class="fas fa-arrow-up high modal"></i></label>
                             </div>
                         </div>
                         <div class="modal-edit-footer">
@@ -84,14 +84,14 @@ const completedTodoTemplate = (date, text, priority, id) => {
                     </div>
                     <div class="modal-edit-content" >
                         <div class="modal-edit-body">
-                            <input type="text" class="edit-todo-input modal" placeholder="What needs to be done???">
-                            <div class="add-todo-edit-checkbox-group modal" onclick="_handleEditCheckboxes(event)">
-                                <input class="checkbox-edit" type="checkbox" checked id="edit-low" value="low">
-                                <label class="modal" for="edit-low">Low<i class="fas fa-arrow-down low modal"></i></label>
-                                <input class="checkbox-edit" type="checkbox" id="edit-medium" value="medium">
-                                <label class="modal" for="edit-medium">Mid<i class="fas fa-arrow-up medium modal"></i></label>
-                                <input class="checkbox-edit" type="checkbox" id="edit-high" value="high">
-                                <label class="modal" for="edit-high">High<i class="fas fa-arrow-up high modal"></i></label>
+                            <input type="text" class="edit-todo-input modal" value="${text}" placeholder="What needs to be done???">
+                            <div class="add-todo-edit-checkbox-group modal" id="${id}" onclick="_handleEditCheckboxes(event, id)">
+                                <input class="checkbox-edit" type="checkbox" checked id="edit-low-${id}" value="low">
+                                <label class="modal" for="edit-low-${id}">Low<i class="fas fa-arrow-down low modal"></i></label>
+                                <input class="checkbox-edit" type="checkbox" id="edit-medium-${id}" value="medium">
+                                <label class="modal" for="edit-medium-${id}">Mid<i class="fas fa-arrow-up medium modal"></i></label>
+                                <input class="checkbox-edit" type="checkbox" id="edit-high-${id}" value="high">
+                                <label class="modal" for="edit-high-${id}">High<i class="fas fa-arrow-up high modal"></i></label>
                             </div>
                         </div>
                         <div class="modal-edit-footer">
@@ -137,9 +137,11 @@ const _parseDate = (date) => {
     return moment(date).from(today);
 };
 
-window._handleEditCheckboxes = (event) => {
-    const container = event.target.closest('.add-todo-edit-checkbox-group');
+window._handleEditCheckboxes = (event, id) => {
+    const container = document.getElementById(id);
+    console.log(container);
     const checkboxes = container.querySelectorAll('.checkbox-edit');
+    console.log(checkboxes);
     if (event.target.nodeName === 'LABEL' && event.target.control.type === 'checkbox') {
         checkboxes.forEach(checkbox => {
             checkbox.checked = false;

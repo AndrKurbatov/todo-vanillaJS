@@ -280,12 +280,6 @@ input[type='checkbox']:checked + label {
 
 .add-todo-edit-checkbox-group input[type='checkbox']:checked + label {
     color: #454545;
-} {
-
-}
-
-.modal-edit-body {
-
 }
 
 .active-modal {
