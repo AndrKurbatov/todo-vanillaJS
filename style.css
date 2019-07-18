@@ -76,7 +76,7 @@ body {
 }
 
 .add-todo-input {
-    width: 35%;
+    width: 100%;
 }
 
 .search-input {
@@ -85,6 +85,70 @@ body {
 
 .search-container {
     width: 50%;
+}
+
+.filter-title {
+    font-size: 18px;
+    color: #ffffff;
+}
+
+.filter-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 15px;
+}
+
+.button {
+    background: #ffffff;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    padding: 10px;
+    margin: 0 5px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 16px;
+    min-width: 102px;
+    cursor: pointer;
+    outline: none;
+}
+
+.date-arrows {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-left: 10px;
+    font-size: 14px;
+}
+.date-arrows i {
+    margin: 1px 0;
+}
+.filter-date {
+    box-shadow: 5px 6px 0 #ce62c5;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 10px;
+}
+
+.filter-all {
+    box-shadow: 5px 6px 0 #3a3a3adb;
+}
+
+.filter-low {
+    box-shadow: 5px 6px 0 #1fa61fb8;
+}
+
+.filter-medium {
+    box-shadow: 5px 6px 0 #f0a418;
+}
+.filter-high {
+    box-shadow: 5px 6px 0 #d22c2cde;
+}
+
+.filter-completed {
+    box-shadow: 5px 6px 0 #cecece;
 }
 
 .todos-list {

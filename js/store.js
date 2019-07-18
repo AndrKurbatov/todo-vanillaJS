@@ -11,7 +11,7 @@ const initialState = {
             },
             id: generateUID()
         },{
-            date: moment().subtract(1, 'days'),
+            date: moment().subtract(5, 'days'),
             text: 'Go to New Zealand',
             priority: 'high',
             status: {

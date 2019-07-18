@@ -9,6 +9,15 @@ const store = new Store();
 const addTodoInputGroup = document.querySelector('.add-todo-container');
 const checkboxes = document.querySelectorAll(".checkbox");
 
+// filter buttons
+
+const filterDate = document.querySelector('.filter-date');
+const filterLow = document.querySelector('.filter-low');
+const filterMedium = document.querySelector('.filter-medium');
+const filterHigh = document.querySelector('.filter-high');
+const filterCompleted = document.querySelector('.filter-completed');
+const filterAll = document.querySelector('.filter-all');
+
 let activeModal = null;
 let priority = 'low';
 store._initState();
@@ -43,6 +52,7 @@ addTodoInputGroup.onclick = (event) => {
 };
 
 list.onclick = (event) => {
+    event.preventDefault();
     const elem = event.target;
     if (elem.dataset.removemodal) {
         _handleRemove(elem.dataset.removemodal);
@@ -189,6 +199,55 @@ document.onclick = function (event) {
     }
 };
 
-document.addEventListener("DOMContentLoaded", function(event) {
+// Filters
 
-});
+filterDate.onclick = (event) => {
+    if (event.target.className.includes('arrow-alt-up')) {
+        store.state = {
+            todos: store.state.todos.sort((a, b) => {
+                console.log(moment.utc(a.date).diff(moment.utc(b.date)));
+                return moment.utc(b.date).diff(moment.utc(a.date));
+            })
+        };
+        renderList();
+    }
+    if (event.target.className.includes('arrow-alt-down')) {
+        store.state = {
+            todos: store.state.todos.sort((a, b) => {
+                console.log(moment.utc(a.date).diff(moment.utc(b.date)));
+                return moment.utc(a.date).diff(moment.utc(b.date));
+            })
+        };
+        renderList();
+    }
+};
+
+filterLow.onclick = () => {
+    event.preventDefault();
+    event.stopPropagation();
+    const filtered = store.state.todos.filter(todo => todo.priority === 'low');
+    renderList(filtered);
+};
+filterMedium.onclick = () => {
+    event.preventDefault();
+    event.stopPropagation();
+    const filtered = store.state.todos.filter(todo => todo.priority === 'medium');
+    renderList(filtered);
+};
+filterHigh.onclick = () => {
+    event.preventDefault();
+    event.stopPropagation();
+    const filtered = store.state.todos.filter(todo => todo.priority === 'high');
+    renderList(filtered);
+};
+filterCompleted.onclick = () => {
+    event.preventDefault();
+    event.stopPropagation();
+    const filtered = store.state.todos.filter(todo => todo.status.done);
+    renderList(filtered);
+};
+filterAll.onclick = () => {
+    event.preventDefault();
+    event.stopPropagation();
+    renderList();
+};
