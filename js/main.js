@@ -5,6 +5,7 @@ import Store from './store.js'
 const list = document.querySelector('.todos-list');
 const search = document.querySelector('.search-container');
 const addTodoInput = document.querySelector('.add-todo-input');
+const addTodoBtn = document.querySelector('.add-todo-btn');
 const store = new Store();
 const addTodoInputGroup = document.querySelector('.add-todo-container');
 const checkboxes = document.querySelectorAll(".checkbox");
@@ -49,6 +50,12 @@ addTodoInputGroup.onclick = (event) => {
     if (event.target.nodeName === 'LABEL' && event.target.control.type === 'checkbox') {
         _handlePriorityChanged(event.target.control)
     }
+};
+
+addTodoBtn.onclick = (event) => {
+        if (addTodoInput.value !== '') {
+            _handleAddTodo(addTodoInput.value)
+        }
 };
 
 list.onclick = (event) => {

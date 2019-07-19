@@ -235,7 +235,7 @@ body {
 }
 
 .status-medium {
-    box-shadow: 5px 6px 0 rgb(255, 165, 104);
+    box-shadow: 5px 6px 0 rgb(255, 131, 46);;
 }
 
 .completed {
@@ -309,6 +309,20 @@ input[type='checkbox'] + label {
 
 input[type='checkbox']:checked + label {
     color: #ffffff;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.input-group i {
+    margin-left: -30px;
+    font-size: 20px;
+    color: #2bab2b;
+    cursor: pointer;
 }
 
 .modal-body {
