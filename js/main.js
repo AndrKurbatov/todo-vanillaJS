@@ -53,10 +53,10 @@ addTodoInputGroup.onclick = (event) => {
 };
 
 addTodoBtn.onclick = () => {
-        if (addTodoInput.value !== '') {
-            _handleAddTodo(addTodoInput.value);
-            addTodoInput.value = '';
-        }
+    if (addTodoInput.value !== '') {
+        _handleAddTodo(addTodoInput.value);
+    }
+    addTodoInput.value = '';
 };
 
 list.onclick = (event) => {
@@ -65,7 +65,7 @@ list.onclick = (event) => {
     if (elem.dataset.removemodal) {
         _handleRemove(elem.dataset.removemodal);
     }
-    if(elem.dataset.remove) {
+    if (elem.dataset.remove) {
         _removeTodo(elem.dataset.remove)
     }
     if (elem.dataset.check) {
@@ -74,7 +74,7 @@ list.onclick = (event) => {
     if (elem.dataset.undo) {
         _handleUndoCheck(elem.dataset.undo);
     }
-    if (elem.dataset.close){
+    if (elem.dataset.close) {
         _closeModal();
     }
     if (elem.dataset.editmodal) {
@@ -112,7 +112,7 @@ function _editTodo(id) {
 
         store.state = {
             todos: store.state.todos.map(todo => {
-                if ( todo.id === id) {
+                if (todo.id === id) {
                     return {
                         ...todo,
                         text: input.value,
