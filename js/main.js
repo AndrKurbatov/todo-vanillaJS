@@ -21,6 +21,7 @@ const filterAll = document.querySelector('.filter-all');
 
 let activeModal = null;
 let priority = 'low';
+
 store._initState();
 renderList();
 
@@ -32,7 +33,6 @@ function renderList(todos = store.state.todos) {
             todoTemplate(todo.date, todo.text, todo.priority, todo.id);
     });
     list.innerHTML = template;
-
 }
 
 search.onkeyup = (event) => {
@@ -52,9 +52,10 @@ addTodoInputGroup.onclick = (event) => {
     }
 };
 
-addTodoBtn.onclick = (event) => {
+addTodoBtn.onclick = () => {
         if (addTodoInput.value !== '') {
-            _handleAddTodo(addTodoInput.value)
+            _handleAddTodo(addTodoInput.value);
+            addTodoInput.value = '';
         }
 };
 
@@ -212,7 +213,6 @@ filterDate.onclick = (event) => {
     if (event.target.className.includes('arrow-alt-up')) {
         store.state = {
             todos: store.state.todos.sort((a, b) => {
-                console.log(moment.utc(a.date).diff(moment.utc(b.date)));
                 return moment.utc(b.date).diff(moment.utc(a.date));
             })
         };
@@ -221,7 +221,6 @@ filterDate.onclick = (event) => {
     if (event.target.className.includes('arrow-alt-down')) {
         store.state = {
             todos: store.state.todos.sort((a, b) => {
-                console.log(moment.utc(a.date).diff(moment.utc(b.date)));
                 return moment.utc(a.date).diff(moment.utc(b.date));
             })
         };

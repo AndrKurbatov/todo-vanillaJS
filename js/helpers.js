@@ -139,16 +139,14 @@ const _parseDate = (date) => {
 
 window._handleEditCheckboxes = (event, id) => {
     const container = document.getElementById(id);
-    console.log(container);
     const checkboxes = container.querySelectorAll('.checkbox-edit');
-    console.log(checkboxes);
+
     if (event.target.nodeName === 'LABEL' && event.target.control.type === 'checkbox') {
         checkboxes.forEach(checkbox => {
             checkbox.checked = false;
         });
         event.target.control.checked = true;
     }
-
 };
 export {
     todoTemplate,
