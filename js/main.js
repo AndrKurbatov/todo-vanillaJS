@@ -1,4 +1,4 @@
-import {todoTemplate, completedTodoTemplate, debounce} from './helpers.js';
+import {todoTemplate, debounce} from './helpers.js';
 import TodoItem from './models.js'
 import Store from './store.js'
 
@@ -29,7 +29,7 @@ function renderList(todos = store.state.todos) {
     let template = '';
     todos.forEach(todo => {
         template += todo.status.done ?
-            completedTodoTemplate(todo.date, todo.text, todo.priority, todo.id) :
+            todoTemplate(todo.date, todo.text, todo.priority, todo.id, true) :
             todoTemplate(todo.date, todo.text, todo.priority, todo.id);
     });
     list.innerHTML = template;
@@ -40,7 +40,7 @@ search.onkeyup = (event) => {
 };
 
 addTodoInput.onkeyup = (event) => {
-    if (event.target.value !== '' && event.key === "Enter") {
+    if (event.target.value.trim() !== '' && event.key === "Enter") {
         _handleAddTodo(event.target.value);
         event.target.value = '';
     }
@@ -53,7 +53,7 @@ addTodoInputGroup.onclick = (event) => {
 };
 
 addTodoBtn.onclick = () => {
-    if (addTodoInput.value !== '') {
+    if (addTodoInput.value.trim() !== '') {
         _handleAddTodo(addTodoInput.value);
     }
     addTodoInput.value = '';
@@ -140,7 +140,6 @@ function _handleRemove(id) {
 
 function _removeTodo(id) {
     store.state = {
-        ...store.state,
         todos: store.state.todos.filter(todo => todo.id !== id)
     };
     renderList();
@@ -148,7 +147,6 @@ function _removeTodo(id) {
 
 function _handleCheck(id) {
     store.state = {
-        ...store.state,
         todos: store.state.todos.map(todo => {
             if (todo.id === id) todo.status.done = true;
             return todo;
@@ -159,7 +157,6 @@ function _handleCheck(id) {
 
 function _handleUndoCheck(id) {
     store.state = {
-        ...store.state,
         todos: store.state.todos.map(todo => {
             if (todo.id === id) todo.status.done = false;
             return todo;
@@ -184,11 +181,11 @@ function _handlePriorityChanged(elem) {
 
 function _handleAddTodo(text) {
     const todo = new TodoItem(text, priority);
-    const result = [...store.state.todos];
+    const result = store.state.todos;
 
     result.unshift(todo);
     store.state = {
-        todos: [...result]
+        todos: result
     };
     renderList();
 }
