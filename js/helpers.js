@@ -14,9 +14,7 @@ const todoTemplate = (date, text, priority, id, completed) => {
                                   ${text}
                               </div>
                               <div class="item-icon-container">
-                              ${completed ? '<i class="fas fa-undo-alt" data-undo="' + ${id} + '"></i>' :
-                                            '<i class="fas fa-check" data-check="' + ${id} + '"></i>'}
-                                 
+                                  ${_getStatusIcon(completed, id)}
                                   <i class="fas fa-pen" data-editModal="${id}"></i>
                                   <i class="fas fa-times" data-removeModal="${id}"></i>
                               </div>
@@ -51,6 +49,20 @@ const todoTemplate = (date, text, priority, id, completed) => {
                 </div>`
 };
 
+function _getBackgroundColor(priority) {
+    return priority === 'low' ? 'status-low' : priority === 'high' ? 'status-high' : 'status-medium'
+}
+
+function _getStatusIcon(completed, id) {
+   return completed ? '<i class="fas fa-undo-alt" data-undo="' + id + '"></i>' :
+                      '<i class="fas fa-check" data-check="' + id + '"></i>'
+}
+
+function _parseDate (date) {
+    const today = moment();
+    return moment(date).from(today);
+}
+
 const generateUID = () => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
@@ -75,16 +87,6 @@ const debounce = (f, ms) => {
         timer = setTimeout(onComplete, ms);
     };
 };
-
-function _getBackgroundColor(priority) {
-    return priority === 'low' ? 'status-low' : priority === 'high' ? 'status-high' : 'status-medium'
-}
-
-const _parseDate = (date) => {
-    const today = moment();
-    return moment(date).from(today);
-};
-
 window._handleEditCheckboxes = (event, id) => {
     const container = document.getElementById(id);
     const checkboxes = container.querySelectorAll('.checkbox-edit');
@@ -96,6 +98,7 @@ window._handleEditCheckboxes = (event, id) => {
         event.target.control.checked = true;
     }
 };
+
 export {
     todoTemplate,
     debounce,
