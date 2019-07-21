@@ -14,8 +14,8 @@ const todoTemplate = (date, text, priority, id, completed) => {
                                   ${text}
                               </div>
                               <div class="item-icon-container">
-                              ${completed ? '<i class="fas fa-undo-alt" data-undo="${id}"></i>' :
-                                            '<i class="fas fa-check" data-check="${id}"></i>'}
+                              ${completed ? '<i class="fas fa-undo-alt" data-undo="' + ${id} + '"></i>' :
+                                            '<i class="fas fa-check" data-check="' + ${id} + '"></i>'}
                                  
                                   <i class="fas fa-pen" data-editModal="${id}"></i>
                                   <i class="fas fa-times" data-removeModal="${id}"></i>
